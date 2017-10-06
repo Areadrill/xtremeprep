@@ -1,14 +1,26 @@
+from math import *
+
 class Point:
     def __init__(self, x, y):
         self.x = x
         self.y = y
 
 def getAngle(origin, p1, p2):
-    return (origin.x - p2.x)/(origin.y - p1.y)
+    sol = atan2((origin.y - p2.y), (origin.x - p1.x))
+    return sol if sol > 0 else -sol
 
 
-ori = Point(5, 5)
-p1 = Point(2, 1)
-p2 = Point(3, 1)
+ori = Point(5, 7)
+poly = [Point(6, 5), Point(4, 5), Point(6, 3), Point(4, 4)]
 
-print(getAngle(ori, p1, p2))
+acum = 0
+
+for i in range(len(poly)-1):
+    acum += getAngle(ori, poly[i], poly[i+1])
+
+print(acum)
+
+if acum >= 2*pi:
+    print("In")
+else:
+    print("Out")
